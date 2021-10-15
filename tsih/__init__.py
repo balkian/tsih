@@ -10,7 +10,7 @@ import tempfile
 
 logger = logging.getLogger(__name__)
 
-__version__ = '0.1.4'
+__version__ = '0.1.5'
 
 from collections import UserDict, namedtuple
 
@@ -442,3 +442,43 @@ Key = namedtuple('Key', ['dict_id', 't_step', 'key'])
 Record = namedtuple('Record', 'dict_id t_step key value')
 
 Stat = namedtuple('Stat', 'stat_id text')
+
+class NoHistory:
+    '''Empty implementation for history meant for testing.'''
+
+    def __init__(self, *args, **kwargs):
+        pass
+
+    def close(self):
+        pass
+
+    def save_stats(self, stat):
+        pass
+    
+    def get_stats(self, unflatten=True):
+        return []
+
+    def save_tuples(self, tuples):
+        return
+
+    def save_records(self, records):
+        return
+
+    def save_record(self, dict_id, t_step, key, value):
+        return
+
+    def flush_cache(self):
+        return
+
+    def to_tuples(self):
+        return []
+
+    def __getitem__(self, key):
+        return None
+
+    def read_sql(self, keys=None, dict_ids=None, not_dict_ids=None, t_steps=None, convert_types=False, limit=-1):
+        return pandas.Dataframe()
+
+    def dump(self, f):
+        return
+
