@@ -1,0 +1,6 @@
+include requirements.txt
+include test-requirements.txt
+include README.md
+graft tsih
+global-exclude __pycache__
+global-exclude *.py[co]
