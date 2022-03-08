@@ -10,7 +10,7 @@ import tempfile
 
 logger = logging.getLogger(__name__)
 
-__version__ = '0.1.5'
+__version__ = '0.1.6'
 
 from collections import UserDict, namedtuple
 
@@ -240,7 +240,7 @@ class History:
         The cache will be flushed at the end of the simulation, and when history is accessed.
         '''
         if self.readonly:
-            raise Exception('DB in readonly mode')
+            return
         logger.debug('Flushing cache {}'.format(self.db_path))
         with self.db:
             self.db.executemany("replace into history(dict_id, t_step, key, value) values (?, ?, ?, ?)", self._tups)
