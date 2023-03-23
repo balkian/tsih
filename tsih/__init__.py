@@ -10,7 +10,7 @@ import tempfile
 
 logger = logging.getLogger(__name__)
 
-__version__ = '0.1.8'
+__version__ = '0.1.9'
 
 from collections import UserDict, namedtuple
 
@@ -138,7 +138,7 @@ class History:
         self._close()
 
     def _close(self):
-        if self._db is None:
+        if not hasattr(self, '_db') or self._db is None:
             return
         self.flush_cache()
         self._db.close()
