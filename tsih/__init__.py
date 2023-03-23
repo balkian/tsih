@@ -10,7 +10,7 @@ import tempfile
 
 logger = logging.getLogger(__name__)
 
-__version__ = '0.1.6'
+__version__ = '0.1.8'
 
 from collections import UserDict, namedtuple
 
@@ -400,9 +400,9 @@ class Records():
         return sum(1 for i in self._filter if i is not None) == 3
 
     def __iter__(self):
-        for column, series in self._df.iteritems():
+        for column, series in self._df.items():
             key, dict_id = column
-            for t_step, value in series.iteritems():
+            for t_step, value in series.items():
                 r = Record(t_step=t_step,
                            dict_id=dict_id,
                            key=key,
@@ -414,7 +414,7 @@ class Records():
             f = self._filter
             try:
                 i = self._df[f.key][str(f.dict_id)]
-                ix = i.index.get_loc(f.t_step, method='ffill')
+                ix = i.index.get_indexer([f.t_step], method='ffill')[0]
                 return i.iloc[ix]
             except KeyError as ex:
                 return self.dtypes[f.key][2]()
